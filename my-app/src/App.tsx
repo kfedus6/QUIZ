@@ -1,8 +1,12 @@
 import React from 'react'
+import { BrowserRouter } from 'react-router-dom'
+import AppRouter from './components/AppRouter'
 
-const App = () => {
+const App: React.FC = () => {
     return (
-        <div className='bg-yellow-600'>App</div>
+        <BrowserRouter>
+            <AppRouter />
+        </BrowserRouter>
     )
 }
 
