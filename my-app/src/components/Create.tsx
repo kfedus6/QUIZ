@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { MdDeleteOutline } from "react-icons/md";
 import { RiExchangeLine } from "react-icons/ri";
 import { IoMdAdd } from "react-icons/io";
+import { useNavigate } from 'react-router-dom';
 
 const Create: React.FC = () => {
     const [isUpdate, setIsUpdate] = useState<boolean>(false)
@@ -9,6 +10,8 @@ const Create: React.FC = () => {
     const [quizList, setQuizList] = useState([])
     const [title, setTitle] = useState<string>('')
     const [newTitle, setNewTitle] = useState<string>('')
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         let list: any = localStorage.getItem('quiz')
@@ -18,7 +21,9 @@ const Create: React.FC = () => {
 
     const addTitle = () => {
         let arr: any = localStorage.getItem('quiz') || []
-        arr = JSON.parse(arr)
+        if (arr.length !== 0) {
+            arr = JSON.parse(arr)
+        }
         arr.push({ id: title, name: title })
         localStorage.setItem('quiz', JSON.stringify(arr))
         setIsAdd(false)
@@ -45,7 +50,7 @@ const Create: React.FC = () => {
                     <div className='flex flex-wrap justify-center items-center gap-5'>
                         {quizList.map((item: any, idx: any) => (
                             <div className='flex justify-between items-center border-2 border-blue-500 p-2 gap-3 rounded-md' key={idx}>
-                                <span className='text-lg'>{item.name}</span>
+                                <span className='text-lg cursor-pointer' onClick={() => navigate(`/createAsk/${item.id}`)}>{item.name}</span>
                                 <span className='cursor-pointer' onClick={() => { setIsUpdate(true); setTitle(item.id) }}><RiExchangeLine size={22} /></span>
                                 <span className='cursor-pointer' onClick={() => deleteQuiz(item.id)}><MdDeleteOutline size={24} /></span>
                             </div>
