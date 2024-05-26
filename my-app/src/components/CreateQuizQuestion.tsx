@@ -4,7 +4,7 @@ import { IoMdAdd } from "react-icons/io";
 import { MdDeleteOutline } from "react-icons/md";
 
 const CreateAsk: React.FC = () => {
-    const [ask, setAsk] = useState<string>('')
+    const [question, setQuestion] = useState<string>('')
     const [answerOne, setAnswerOne] = useState<any>()
     const [answerTwo, setAnswerTwo] = useState<any>()
     const [answerThree, setAnswerThree] = useState<any>()
@@ -13,20 +13,20 @@ const CreateAsk: React.FC = () => {
     const [answerBoolTwo, setAnswerBoolTwo] = useState<boolean>(false)
     const [answerBoolThree, setAnswerBoolThree] = useState<boolean>(false)
     const [answerBoolFour, setAnswerBoolFour] = useState<boolean>(false)
-    const [isAddAsk, setIsAddAsk] = useState<boolean>(false)
+    const [isAddQuestion, setIsAddQuestion] = useState<boolean>(false)
     const [mark, setMark] = useState<string>('')
-    const [askList, setAskList] = useState<any>([])
+    const [questionsList, setQuestionsList] = useState<any>([])
 
     const { id } = useParams()
 
     useEffect(() => {
-        let list: any = localStorage.getItem(`askList${id}`)
+        let list: any = localStorage.getItem(`list${id}`)
         list = JSON.parse(list)
-        setAskList(list)
+        setQuestionsList(list)
     }, [])
 
-    const createAskAnswer = () => {
-        let arr: any = localStorage.getItem(`askList${id}`) || []
+    const createQuestionAnswer = () => {
+        let arr: any = localStorage.getItem(`list${id}`) || []
         if (arr.length !== 0) {
             arr = JSON.parse(arr)
         }
@@ -43,31 +43,31 @@ const CreateAsk: React.FC = () => {
         } else if (answerBoolFour === true) {
             correctFour = 'Yes'
         }
-        arr.push({ id: id, ask: ask, answer1: answerOne, answerCorrectOne: correctOne, answer2: answerTwo, answerCorrectTwo: correctTwo, answer3: answerThree, answerCorrectThree: correctThree, answer4: answerFour, answerCorrectFour: correctFour, mark: mark })
-        localStorage.setItem(`askList${id}`, JSON.stringify(arr))
-        setIsAddAsk(false)
+        arr.push({ id: id, question: question, answer1: answerOne, answerCorrectOne: correctOne, answer2: answerTwo, answerCorrectTwo: correctTwo, answer3: answerThree, answerCorrectThree: correctThree, answer4: answerFour, answerCorrectFour: correctFour, mark: mark })
+        localStorage.setItem(`list${id}`, JSON.stringify(arr))
+        setIsAddQuestion(false)
     }
 
-    const deleteAks = (ask: any) => {
-        let newList = askList.filter((f: any) => f.ask !== ask)
-        localStorage.setItem(`askList${id}`, JSON.stringify(newList))
+    const deleteQuestion = (question: any) => {
+        let newList = questionsList.filter((f: any) => f.question !== question)
+        localStorage.setItem(`list${id}`, JSON.stringify(newList))
     }
 
     return (
-        <div className='flex justify-center items-center'>
-            <div className='w-96 h-auto flex flex-col justify-center items-center gap-10'>
+        <div className='w-full flex justify-center items-center'>
+            <div className='w-1/2 flex flex-col justify-center items-center gap-10'>
                 <div className='text-xl'>Create Ask {id}</div>
-                <div className='text-black cursor-pointer' onClick={() => setIsAddAsk(true)}><IoMdAdd size={28} /></div>
-                <div className='flex gap-10'>
-                    {askList !== null ?
-                        askList.map((item: any, idx: any) => (
-                            <div key={idx}>
-                                <div>{item.ask} <MdDeleteOutline onClick={() => deleteAks(item.ask)} size={22} /></div>
-                                <div>
-                                    <p>{item.answer1}: {item.answerCorrectOne}</p>
-                                    <p>{item.answer2}: {item.answerCorrectTwo}</p>
-                                    <p>{item.answer3}: {item.answerCorrectThree}</p>
-                                    <p>{item.answer4}: {item.answerCorrectFour}</p>
+                <div className='text-black cursor-pointer' onClick={() => setIsAddQuestion(true)}><IoMdAdd size={28} /></div>
+                <div className='flex w-full flex-col gap-10'>
+                    {questionsList !== null ?
+                        questionsList.map((item: any, idx: any) => (
+                            <div key={idx} className='w-full flex flex-col bg-slate-200 p-3 gap-3 rounded-md'>
+                                <div className='flex gap-10'>{item.question} <MdDeleteOutline onClick={() => deleteQuestion(item.question)} size={22} /></div>
+                                <div className='flex flex-col gap-1'>
+                                    <p className={item.answerCorrectOne === "Yes" ? 'bg-green-300' : ''}>{item.answer1}</p>
+                                    <p className={item.answerCorrectTwo === "Yes" ? 'bg-green-300' : ''}>{item.answer2}</p>
+                                    <p className={item.answerCorrectThree === "Yes" ? 'bg-green-300' : ''}>{item.answer3}</p>
+                                    <p className={item.answerCorrectFour === "Yes" ? 'bg-green-300' : ''}>{item.answer4}</p>
                                 </div>
                                 <div>Mark:{item.mark}</div>
                             </div>
@@ -76,10 +76,10 @@ const CreateAsk: React.FC = () => {
                         <></>
                     }
                 </div>
-                {isAddAsk ?
+                {isAddQuestion ?
                     <div className='flex flex-col gap-2'>
-                        <label>Ask</label>
-                        <input className='input' type="text" onChange={(e) => setAsk(e.target.value)} />
+                        <label>Question</label>
+                        <input className='input' type="text" onChange={(e) => setQuestion(e.target.value)} />
                         <div className='flex flex-col gap-2'>
                             <label>Answer 1</label>
                             <input className='input' type="text" onChange={(e) => setAnswerOne(e.target.value)} />
@@ -138,7 +138,7 @@ const CreateAsk: React.FC = () => {
                         </div>
                         Rating
                         <input className='input' type="text" onChange={(e) => setMark(e.target.value)} />
-                        <button className='btn btn-green' onClick={createAskAnswer}>Add</button>
+                        <button className='btn btn-green' onClick={createQuestionAnswer}>Add</button>
                     </div>
                     :
                     <></>}

@@ -49,7 +49,7 @@ const Create: React.FC = () => {
                 <div className='flex flex-col justify-center items-center gap-10'>
                     <div className='flex flex-wrap justify-center items-center gap-5'>
                         {quizList.map((item: any, idx: any) => (
-                            <div className='flex justify-between items-center border-2 border-blue-500 p-2 gap-3 rounded-md' key={idx}>
+                            <div className='flex justify-between items-center bg-blue-200 hover:bg-blue-300 transform ease-out duration-300 p-2 gap-3 rounded-md' key={idx}>
                                 <span className='text-lg cursor-pointer' onClick={() => navigate(`/createAsk/${item.id}`)}>{item.name}</span>
                                 <span className='cursor-pointer' onClick={() => { setIsUpdate(true); setTitle(item.id) }}><RiExchangeLine size={22} /></span>
                                 <span className='cursor-pointer' onClick={() => deleteQuiz(item.id)}><MdDeleteOutline size={24} /></span>

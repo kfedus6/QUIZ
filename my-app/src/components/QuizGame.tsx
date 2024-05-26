@@ -52,7 +52,7 @@ const Start: React.FC = () => {
                     </ul>
                 </div>
                 <div className='flex flex-wrap justify-center items-center gap-5'>
-                    {quizList.map((item: any, idx: any) => (
+                    {filteredQuiz.map((item: any, idx: any) => (
                         <div className='flex justify-between items-center bg-blue-200 hover:bg-blue-300 transform ease-out duration-300 p-2 gap-3 rounded-md' key={idx}>
                             <span className='text-lg cursor-pointer' onClick={() => navigate(`/startGame/${item.id}`)}>{item.name}</span>
                         </div>

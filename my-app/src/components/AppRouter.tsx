@@ -4,10 +4,10 @@ import Layout from './Layout'
 import Home from '../pages/Home'
 import AppError from '../pages/AppError'
 import History from '../pages/History'
-import Start from './Start'
-import Create from './Create'
-import CreateAsk from './CreateAsk'
-import StartGame from './StartGame'
+import Start from './QuizGame'
+import Create from './CreateQuiz'
+import CreateAsk from './CreateQuizQuestion'
+import StartGame from './StartQuizGame'
 
 const AppRouter: React.FC = () => {
     return (
